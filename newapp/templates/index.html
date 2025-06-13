@@ -27,8 +27,25 @@ https://templatemo.com/tm-507-victory
 
 <body>
     <div class="header">
+
+        {% if messages %}
+  <div class="container mt-3">
+    {% for message in messages %}
+      <div style="background-color: #d4edda; color: #155724; padding: 10px; margin-bottom: 10px; border: 1px solid #c3e6cb; border-radius: 5px;">
+        {{ message }}
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
+
+
         <div class="container">
             <a href="#" class="navbar-brand scroll-top">Victory</a>
+
+
+
+
+
             <nav class="navbar navbar-inverse" role="navigation">
                 <div class="navbar-header">
                     <button type="button" id="nav-toggle" class="navbar-toggle" data-toggle="collapse" data-target="#main-nav">
@@ -45,6 +62,21 @@ https://templatemo.com/tm-507-victory
                         <li><a href="{% url 'menu' %}">Our Menus</a></li>
                         <li><a href="{% url 'blog' %}">Blog Entries</a></li>
                         <li><a href="{% url 'contact' %}">Contact Us</a></li>
+                           {% if request.user.is_authenticated %}
+                    <li><a href="{% url 'logout' %}"
+           style="display: inline-block; padding: 10px 20px; background-color: #dc3545; color: white; border: none; border-radius: 6px; text-decoration: none; font-weight: 500;">
+           🚪 Выйти
+              </a></li>
+    {% else %}
+        <li><a href="{% url 'login' %}"
+           style="display: inline-block; padding: 10px 20px; background-color: #0d6efd; color: white; border: none; border-radius: 20px; text-decoration: none; font-weight: 500; margin-right: 10px;">
+           Войти
+        </a></li>
+       <li><a href="{% url 'register' %}"
+           style="display: inline-block; padding: 10px 20px; background-color: #6c757d; color: white; border: none; border-radius: 20px; text-decoration: none; font-weight: 500;">
+           Зарегистрироваться
+        </a></li>
+    {% endif %}
                     </ul>
                 </div>
                 <!--/.navbar-collapse-->
@@ -145,8 +177,7 @@ https://templatemo.com/tm-507-victory
     </section>
 
 
-
- <section id="book-table">
+    <section id="book-table">
   <div class="container">
     <div class="row">
       <div class="col-md-12"><h2>Book Your Table Now</h2></div>
@@ -163,61 +194,70 @@ https://templatemo.com/tm-507-victory
             <div class="alert alert-success">{{ message }}</div>
           {% endfor %}
         {% endif %}
+          {% if request.user.is_authenticated %}
 
-        <form method="POST" action="">
-          {% csrf_token %}
-          <div class="row">
-            <div class="col-md-6">
-              <input type="text" name="name" class="form-control" placeholder="Full name" required>
-            </div>
-            <div class="col-md-6">
-              <input type="text" name="phone" class="form-control" placeholder="Phone number" required>
-            </div>
-            <div class="col-md-6">
-              <select name="day" class="form-control" required>
-                <option value="">Select day</option>
-                <option value="Monday">Monday</option>
-                <option value="Tuesday">Tuesday</option>
-                <option value="Wednesday">Wednesday</option>
-                <option value="Thursday">Thursday</option>
-                <option value="Friday">Friday</option>
-                <option value="Saturday">Saturday</option>
-                <option value="Sunday">Sunday</option>
-              </select>
-            </div>
-            <div class="col-md-6">
-              <select name="hour" class="form-control" required>
-                <option value="">Select hour</option>
-                <option value="10:00">10:00</option>
-                <option value="12:00">12:00</option>
-                <option value="14:00">14:00</option>
-                <option value="16:00">16:00</option>
-                <option value="18:00">18:00</option>
-                <option value="20:00">20:00</option>
-                <option value="22:00">22:00</option>
-              </select>
-            </div>
-            <div class="col-md-6">
-              <select name="persons" class="form-control" required>
-                <option value="">How many persons?</option>
-                <option value="1">1 Person</option>
-                <option value="2">2 Persons</option>
-                <option value="3">3 Persons</option>
-                <option value="4">4 Persons</option>
-                <option value="5">5 Persons</option>
-                <option value="6">6 Persons</option>
-              </select>
-            </div>
-            <div class="col-md-6">
-              <button type="submit" class="btn">Book Table</button>
-            </div>
-          </div>
-        </form>
+  <form method="POST" action="">
+    {% csrf_token %}
+    <div class="row">
+      <div class="col-md-6">
+        <input type="text" name="name" class="form-control" placeholder="Full name" required>
+      </div>
+      <div class="col-md-6">
+        <input type="text" name="phone" class="form-control" placeholder="Phone number" required>
+      </div>
+      <div class="col-md-6">
+        <select name="day" class="form-control" required>
+          <option value="">Select day</option>
+          <option value="Monday">Monday</option>
+          <option value="Tuesday">Tuesday</option>
+          <option value="Wednesday">Wednesday</option>
+          <option value="Thursday">Thursday</option>
+          <option value="Friday">Friday</option>
+          <option value="Saturday">Saturday</option>
+          <option value="Sunday">Sunday</option>
+        </select>
+      </div>
+      <div class="col-md-6">
+        <select name="hour" class="form-control" required>
+          <option value="">Select hour</option>
+          <option value="10:00">10:00</option>
+          <option value="12:00">12:00</option>
+          <option value="14:00">14:00</option>
+          <option value="16:00">16:00</option>
+          <option value="18:00">18:00</option>
+          <option value="20:00">20:00</option>
+          <option value="22:00">22:00</option>
+        </select>
+      </div>
+      <div class="col-md-6">
+        <select name="persons" class="form-control" required>
+          <option value="">How many persons?</option>
+          <option value="1">1 Person</option>
+          <option value="2">2 Persons</option>
+          <option value="3">3 Persons</option>
+          <option value="4">4 Persons</option>
+          <option value="5">5 Persons</option>
+          <option value="6">6 Persons</option>
+        </select>
+      </div>
+      <div class="col-md-6">
+        <button type="submit" class="btn">Book Table</button>
+      </div>
+    </div>
+  </form>
+{% else %}
+  <div style="background-color: #f8d7da; color: #721c24; padding: 20px; border-radius: 8px; text-align: center; margin-top: 20px;">
+    <p><strong>Чтобы забронировать столик, пожалуйста, <a href="{% url 'login' %}">войдите</a> или <a href="{% url 'register' %}">зарегистрируйтесь</a>.</strong></p>
+  </div>
+{% endif %}
+
+
 
       </div>
     </div>
   </div>
 </section>
+
 
 
 
