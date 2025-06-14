@@ -53,28 +53,19 @@ https://templatemo.com/tm-507-victory
                 </div>
                 <!--/.navbar-header-->
                 <div id="main-nav" class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav">
-                        <li><a href="{% url 'main_page' %}">Главная</a></li>
-                        <li><a href="{% url 'menu' %}">Наше меню</a></li>
-                        <li><a href="{% url 'blog' %}">Блог</a></li>
-                        <li><a href="{% url 'contact' %}">Связаться</a></li>
-                           {% if request.user.is_authenticated %}
-                    <li><a href="{% url 'logout' %}"
-           style="display: inline-block; padding: 10px 20px; background-color: #dc3545; color: white; border: none; border-radius: 6px; text-decoration: none; font-weight: 500;">
-           🚪 Выйти
-              </a></li>
-    {% else %}
-        <li><a href="{% url 'login' %}"
-           style="display: inline-block; padding: 10px 20px; background-color: #0d6efd; color: white; border: none; border-radius: 20px; text-decoration: none; font-weight: 500; margin-right: 10px;">
-           Войти
-        </a></li>
-       <li><a href="{% url 'register' %}"
-           style="display: inline-block; padding: 10px 20px; background-color: #6c757d; color: white; border: none; border-radius: 20px; text-decoration: none; font-weight: 500;">
-           Зарегистрироваться
-        </a></li>
-    {% endif %}
-                    </ul>
-                </div>
+    <ul class="nav navbar-nav">
+        <li><a href="{% url 'main_page' %}">Главная</a></li>
+        <li><a href="{% url 'menu' %}">Наше меню</a></li>
+        <li><a href="{% url 'blog' %}">Блог</a></li>
+        <li><a href="{% url 'contact' %}">Связаться</a></li>
+        {% if request.user.is_authenticated %}
+            <li><a href="{% url 'logout' %}">Выйти</a></li>
+        {% else %}
+            <li><a href="{% url 'login' %}">Войти</a></li>
+            <li><a href="{% url 'register' %}">Зарегистрироваться</a></li>
+        {% endif %}
+    </ul>
+</div>
                 <!--/.navbar-collapse-->
             </nav>
             <!--/.navbar-->
