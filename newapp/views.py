@@ -1,11 +1,13 @@
 from django.shortcuts import render, redirect
 from .forms import TableBookingForm, RegisterForm
 from django.contrib import messages
+from .models import Post, Comment
 from django.contrib.auth import login, logout as auth_logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
-
-
+from django.shortcuts import get_object_or_404
+from .forms import CommentForm
+from django.core.paginator import Paginator
 
 def main_page(request):
     if request.method == 'POST':
@@ -18,11 +20,50 @@ def main_page(request):
             return redirect('main_page')
     else:
         form = TableBookingForm()
-    return render(request, 'index.html', {'form': form})
+
+    latest_posts = Post.objects.all().order_by('-date')[:4]
+
+    context = {
+        'form': form,
+        'latest_posts': latest_posts,
+    }
+    return render(request, 'index.html', context)
 
 
 def blog(request):
-    return render(request, 'blog.html')
+    all_posts = Post.objects.all().order_by('-date')
+    paginator = Paginator(all_posts, 4)
+    page_num = request.GET.get('page')
+    page_obj = paginator.get_page(page_num)
+    return render(request, 'blog.html', {'page_obj': page_obj})
+
+def post_detail(request, post_id):
+    post = get_object_or_404(Post, pk=post_id)
+    comments = Comment.objects.filter(post=post).order_by('-created_date')
+
+    if request.method == 'POST':
+        text = request.POST.get('text', '').strip()
+        if not text:
+            messages.error(request, "Комментарий не может быть пустым")
+        else:
+            if request.user.is_authenticated:
+                author = request.user.username
+            else:
+                author = 'Гость'
+
+            Comment.objects.create(
+                post=post,
+                author=author,
+                text=text
+            )
+            messages.success(request, "Комментарий добавлен!")
+            return redirect('post_detail', post_id=post.id)
+
+    return render(request, 'post_detail.html', {
+        'post': post,
+        'comments': comments,
+        'request': request
+    })
 
 def contact(request):
     return render(request, 'contact.html')

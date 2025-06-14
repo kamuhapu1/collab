@@ -1,15 +1,10 @@
 {% load static %}
+{% load markdownify %}
 <html lang="ru">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-
-    <!--
-Victory HTML CSS Template
-https://templatemo.com/tm-507-victory
--->
-
-    <title>Блог - Victory</title>
+    <title>{{ post.title }} - Victory</title>
     <meta name="description" content="Блог ресторана Victory - гастрономические истории и новости">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="apple-touch-icon" href="{% static 'apple-touch-icon.png' %}">
@@ -56,86 +51,80 @@ https://templatemo.com/tm-507-victory
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h1>Наш блог</h1>
-                    <p>Добро пожаловать в наш блог — здесь мы делимся <strong>вдохновением, историями блюд, гастрономическими идеями и новостями ресторана.</strong></p>
+                    <h1>{{ post.title }}</h1>
+                    <p>{{ post.short_description }}</p>
+                    <p>Автор: {{ post.get_author_display }} | Дата: {{ post.date|date:"d M Y" }}</p>
                 </div>
             </div>
         </div>
     </section>
 
     <section class="blog-page">
-    <div class="container">
-        <div class="row">
-            {% for post in page_obj %}
-            <div class="col-md-8 col-md-offset-2">
-                <div class="blog-item">
-                    {% if post.image %}
-                    <a href="{% url 'post_detail' post.id %}">
-                        <img src="{{ post.image.url }}" alt="{{ post.title }}" class="img-responsive">
-                    </a>
-                    {% endif %}
-                    <div class="date">{{ post.date|date:"d M Y" }}</div>
-                    <div class="down-content">
-                        <a href="{% url 'post_detail' post.id %}"><h4>{{ post.title }}</h4></a>
-                        <span>Автор: {{ post.get_author_display }}</span>
-                        <p>{{ post.short_description }}</p>
-                        <div class="text-button">
-                            <a href="{% url 'post_detail' post.id %}">Читать далее &rarr;</a>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="blog-item">
+                            <img src="{{ post.image.url }}" alt="{{ post.title }}" class="img-responsive">
+                        <div class="date">{{ post.date|date:"d M Y" }}</div>
+                        <div class="down-content">
+                            <h4>{{ post.title }}</h4>
+                            <span>Автор: {{ post.get_author_display }}</span>
+                            <div class="post-content" style="color: #6c757d;">
+                                {{ post.content|markdownify }}
+                            </div>
+                            {% if post.conclusion %}
+                                <p>{{ post.conclusion }}</p>
+                            {% endif %}
+                            <div class="text-button">
+                                <a href="{% url 'blog' %}">Вернуться к блогу &larr;</a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            {% empty %}
-            <div class="col-md-8 col-md-offset-2">
-                <div class="alert alert-info">Пока нет ни одного поста. Зайдите позже!</div>
-            </div>
-            {% endfor %}
 
-            <div class="col-md-8 col-md-offset-2">
-                <ul class="page-number">
-                    {% if page_obj.has_previous %}
-                        <li><a href="?page=1">&laquo;</a></li>
-                        <li><a href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a></li>
-                    {% endif %}
+<div class="comments-section mt-5">
+    <h4 class="mb-4">Комментарии ({{ comments.count }})</h4>
 
-                    <li class="active"><a href="#">{{ page_obj.number }}</a></li>
-
-                    {% if page_obj.has_next %}
-                        <li><a href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a></li>
-                        <li><a href="?page={{ page_obj.paginator.num_pages }}">&raquo;</a></li>
-                    {% endif %}
-                </ul>
-            </div>
+    {% for comment in comments %}
+    <div class="comment mb-4 p-3 bg-light rounded">
+        <div class="d-flex justify-content-between mb-2">
+            <strong>{{ comment.author }}</strong>
+            <small class="text-muted">{{ comment.created_date|date:"d M Y H:i" }}</small>
         </div>
+        <p class="mb-0">{{ comment.text|linebreaksbr }}</p>
     </div>
-</section>
+    {% empty %}
+    <p>Пока нет комментариев. Будьте первым!</p>
+    {% endfor %}
 
-    <section class="sign-up">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="heading">
-                        <h2>Подпишитесь на наши новости</h2>
-                    </div>
-                </div>
+    <div class="comment-form mt-5">
+    <h5 class="mb-3">
+        <a href="#submit-comment" class="smooth-scroll-link text-decoration-none" style="color: inherit;">
+            Оставить комментарий
+        </a>
+    </h5>
+    <form method="post">
+            {% csrf_token %}
+
+            {% if not request.user.is_authenticated %}
+            <div class="alert alert-warning small mb-3">
+                Вы комментируете как гость. <a href="{% url 'login' %}?next={{ request.path }}">Войдите</a>, чтобы сохранить имя.
             </div>
-            <form id="contact" action="" method="post">
-                {% csrf_token %}
-                <div class="row">
-                    <div class="col-md-4 col-md-offset-3">
-                        <fieldset>
-                            <input name="email" type="email" class="form-control" id="email" placeholder="Ваш email..." required>
-                        </fieldset>
-                    </div>
-                    <div class="col-md-2">
-                        <fieldset>
-                            <button type="submit" id="form-submit" class="btn">Подписаться</button>
-                        </fieldset>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </section>
+            {% endif %}
+
+            <div class="form-group">
+                <textarea name="text" class="form-control" rows="3"
+                          placeholder="Ваш комментарий..." required></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-coral mt-3" id="submit-comment">
+                <i class="far fa-paper-plane me-2"></i> Отправить
+            </button>
+        </form>
+    </div>
+</div>
+
+<div class="footer-spacer" style="height: 100px;"></div>
 
     <footer>
         <div class="container">
@@ -145,7 +134,7 @@ https://templatemo.com/tm-507-victory
                 </div>
                 <div class="col-md-4">
                     <ul class="social-icons">
-                        <li><a rel="nofollow" href="https://fb.com/templatemo"><i class="fa fa-facebook"></i></a></li>
+                        <li><a rel="nofollow" href="{% static 'https://fb.com/templatemo' %}"><i class="fa fa-facebook"></i></a></li>
                         <li><a href="#"><i class="fa fa-twitter"></i></a></li>
                         <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
                         <li><a href="#"><i class="fa fa-rss"></i></a></li>
@@ -190,6 +179,16 @@ https://templatemo.com/tm-507-victory
         var targetOffset = $(id).offset().top - offSet;
         $('html,body').animate({scrollTop:targetOffset}, speed);
     }
+    </script>
+
+    <script>
+    document.querySelector('.smooth-scroll-link').addEventListener('click', function(e) {
+        e.preventDefault();
+        document.getElementById('submit-comment').scrollIntoView({
+            behavior: 'smooth',
+            block: 'center'
+        });
+    });
     </script>
 </body>
 </html>

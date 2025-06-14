@@ -1170,3 +1170,70 @@ section.map #map {
 @media (max-width: 480px) {
 
 }
+
+.contact-form .btn {
+    margin-right: 10px;
+    padding: 10px 20px;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.contact-form .btn i {
+    margin-right: 5px;
+}
+
+@media (min-width: 992px) {
+    .our-blog .blog-post {
+        margin-bottom: 30px;
+    }
+    .our-blog .col-md-3 {
+        width: 25%;
+        float: left;
+    }
+}
+
+.blog-post {
+    background: #fff;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    transition: all 0.3s;
+}
+.blog-post:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.comment {
+    border-left: 3px solid #FF6B6B;
+}
+
+.comment-form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.btn-coral {
+    background-color: #FF6B6B;
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 4px;
+}
+
+.btn-coral:hover {
+    background-color: #E05555;
+    color: white;
+}
+
+.post-content {
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+.post-content img {
+    max-width: 100%;
+    height: auto;
+}
