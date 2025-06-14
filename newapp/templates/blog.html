@@ -66,7 +66,7 @@ https://templatemo.com/tm-507-victory
     <section class="blog-page">
     <div class="container">
         <div class="row">
-            {% for post in posts %}
+            {% for post in page_obj %}
             <div class="col-md-8 col-md-offset-2">
                 <div class="blog-item">
                     {% if post.image %}
@@ -93,11 +93,17 @@ https://templatemo.com/tm-507-victory
 
             <div class="col-md-8 col-md-offset-2">
                 <ul class="page-number">
-                    <li><a href="#">1</a></li>
-                    <li class="active"><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">&raquo;</a></li>
+                    {% if page_obj.has_previous %}
+                        <li><a href="?page=1">&laquo;</a></li>
+                        <li><a href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a></li>
+                    {% endif %}
+
+                    <li class="active"><a href="#">{{ page_obj.number }}</a></li>
+
+                    {% if page_obj.has_next %}
+                        <li><a href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a></li>
+                        <li><a href="?page={{ page_obj.paginator.num_pages }}">&raquo;</a></li>
+                    {% endif %}
                 </ul>
             </div>
         </div>

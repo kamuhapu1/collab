@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import get_object_or_404
 from .forms import CommentForm
+from django.core.paginator import Paginator
 
 def main_page(request):
     if request.method == 'POST':
@@ -30,8 +31,11 @@ def main_page(request):
 
 
 def blog(request):
-    posts = Post.objects.all()
-    return render(request, 'blog.html', {'posts': posts})
+    all_posts = Post.objects.all().order_by('-date')
+    paginator = Paginator(all_posts, 4)
+    page_num = request.GET.get('page')
+    page_obj = paginator.get_page(page_num)
+    return render(request, 'blog.html', {'page_obj': page_obj})
 
 def post_detail(request, post_id):
     post = get_object_or_404(Post, pk=post_id)

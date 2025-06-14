@@ -301,94 +301,177 @@ https://templatemo.com/tm-507-victory
 
 
 
-    <section class="latest-posts py-5 bg-light">
+   <section class="blog-preview">
     <div class="container">
-        <h2 class="text-center mb-5 display-5 fw-bold">Последние записи в блоге</h2>
+        <h2 class="section-heading">Последние записи в блоге</h2>
 
-        <div class="row g-4">
-            {% for post in latest_posts %}
-            <div class="col-lg-6 col-md-6">
-                <div class="post-card h-100 d-flex flex-column bg-white rounded-3 overflow-hidden shadow">
-                    <div class="row g-0 h-100">
-                        <div class="col-md-5">
-                            <div class="post-image-wrapper" style="height: 280px;">
-                                {% if post.image %}
-                                <img src="{{ post.image.url }}"
-                                     alt="{{ post.title }}"
-                                     class="img-fluid h-100 w-100 object-fit-cover">
-                                {% endif %}
-                            </div>
-                        </div>
-                        <div class="col-md-7 d-flex flex-column">
-                            <div class="p-4 h-100 d-flex flex-column">
-                                <div class="text-muted mb-2 small">
-                                    {{ post.date|date:"d M Y" }}
-                                </div>
-                                <h3 class="post-title mb-3 fs-4 fw-bold">{{ post.title }}</h3>
-                                <p class="post-excerpt mb-4 fs-5 text-secondary flex-grow-1">
-                                    {{ post.short_description|default:post.content|truncatechars:120 }}
-                                </p>
-                                <div class="mt-auto">
-                                    <a href="{% url 'post_detail' post.id %}"
-                                       class="btn btn-coral px-4 py-2 fw-bold text-white">
-                                        Читать далее <i class="fas fa-arrow-right ms-2"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
+        <div class="row posts-grid">
+            {% for post in latest_posts|slice:":3" %}
+            <div class="col-md-4 mb-3"> <!-- Уменьшил margin-bottom с mb-4 на mb-3 -->
+                <article class="post-card">
+                    <div class="post-thumbnail">
+                        <img src="{{ post.image.url }}" alt="{{ post.title }}" class="img-fluid">
+                        <span class="post-date">{{ post.date|date:"d M Y" }}</span>
                     </div>
-                </div>
+                    <div class="post-content">
+                        <h3 class="post-title">{{ post.title }}</h3>
+                        <p class="post-excerpt">{{ post.short_description|truncatechars:120 }}</p>
+                        <a href="{% url 'post_detail' post.id %}" class="read-more">
+                            Читать далее <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </article>
             </div>
             {% empty %}
             <div class="col-12">
-                <div class="alert alert-info text-center fs-5 py-3">Пока нет ни одного поста.</div>
+                <div class="alert alert-info text-center">Пока нет опубликованных постов</div>
             </div>
             {% endfor %}
+        </div>
+
+        <div class="text-center mt-4">
+            <a href="{% url 'blog' %}" class="btn btn-outline-coral">Все записи блога</a>
         </div>
     </div>
 </section>
 
 <style>
-    .post-card {
-        transition: transform 0.3s ease;
+
+    .article {
+    padding: 20px;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+    background: white;
+    border-radius: 8px;
     }
 
-    .post-card:hover {
-        transform: translateY(-5px);
+    .blog-preview {
+        padding: 40px 0;
+        background: #f9f9f9;
     }
 
-    .post-title {
-        color: #333;
-        line-height: 1.3;
-    }
-
-    .post-excerpt {
-        line-height: 1.6;
-    }
-
-    .btn-coral {
-        background-color: #FF6B6B;  /* Коралловый цвет */
-        border-color: #FF6B6B;
-        transition: all 0.3s ease;
-    }
-
-    .btn-coral:hover {
-        background-color: #E05555;  /* Темнее при наведении */
-        border-color: #E05555;
-        transform: translateY(-2px);
-        color: white;
-    }
-
-    .post-image-wrapper {
+    .section-heading {
+        font-family: 'Spectral', serif;
+        text-align: center;
+        margin-bottom: 40px;
         position: relative;
+        font-size: 2.2rem;
     }
 
-    .post-image {
+    .section-heading:after {
+        content: '';
+        display: block;
+        width: 80px;
+        height: 2px;
+        background: #FF6B6B;
+        margin: 12px auto 0;
+    }
+
+    .post-card {
+        background: white;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        transition: all 0.3s ease;
+        height: 58%;
+        margin-bottom: 5px;
+    }
+
+    .post-thumbnail {
+        position: relative;
+        height: 200px;
+        overflow: hidden;
+    }
+
+    .post-thumbnail img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
         transition: transform 0.5s ease;
     }
 
-    .post-card:hover .post-image {
+    .post-card:hover .post-thumbnail img {
         transform: scale(1.05);
+    }
+
+    .post-date {
+        position: absolute;
+        bottom: 15px;
+        left: 15px;
+        background: rgba(255,107,107,0.9);
+        color: white;
+        padding: 3px 10px;
+        border-radius: 4px;
+        font-size: 0.8rem;
+    }
+
+    .post-content {
+        padding: 20px; /* Уменьшил с 25px */
+    }
+
+    .post-title {
+        font-family: 'Spectral', serif;
+        font-size: 1.3rem;
+        margin-bottom: 10px; /* Уменьшил с 12px */
+        color: #333;
+    }
+
+    .post-excerpt {
+        color: #666;
+        line-height: 1.6;
+        margin-bottom: 15px;
+    }
+
+    .read-more {
+        color: #FF6B6B;
+        font-weight: 500;
+        margin-top: 10px;
+        text-decoration: none;
+        display: inline-block;
+        align-items: center;
+    }
+
+    .read-more i {
+        margin-left: 8px;
+        transition: transform 0.3s ease;
+    }
+
+    .read-more:hover {
+        color: #E05555;
+    }
+
+    .read-more:hover i {
+        transform: translateX(3px);
+    }
+
+    .btn-outline-coral {
+        color: #FF6B6B;
+        border-color: #FF6B6B;
+        padding: 8px 25px;
+        transition: all 0.3s;
+    }
+
+    .mt-4 {
+    margin-top: 1.5rem;
+    }
+
+    .btn-outline-coral:hover {
+        background: #FF6B6B;
+        color: white;
+    }
+
+    @media (max-width: 992px) {
+        .col-md-4 {
+            flex: 0 0 50%;
+            max-width: 50%;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .col-md-4 {
+            flex: 0 0 100%;
+            max-width: 100%;
+        }
     }
 </style>
 
