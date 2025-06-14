@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class TableBooking(models.Model):
     name = models.CharField(max_length=100)
@@ -10,3 +11,21 @@ class TableBooking(models.Model):
     def __str__(self):
         return f"{self.name} - {self.day} {self.hour} ({self.persons})"
 
+class Post(models.Model):
+    AUTHOR_CHOICES = [
+        ('admin', 'Администратор'),
+        ('chef', 'Шеф-повар'),
+    ]
+    title = models.CharField(max_length=150)
+    short_description = models.CharField(max_length=100)
+    content = models.TextField()
+    conclusion = models.TextField(max_length=100, blank=True)
+    author = models.CharField(max_length=50, choices=AUTHOR_CHOICES)
+    date = models.DateField(auto_now_add=True)
+    image = models.ImageField(upload_to='blog_images/', max_length=255)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        ordering = ['-date']

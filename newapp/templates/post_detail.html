@@ -3,13 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-
-    <!--
-Victory HTML CSS Template
-https://templatemo.com/tm-507-victory
--->
-
-    <title>Блог - Victory</title>
+    <title>{{ post.title }} - Victory</title>
     <meta name="description" content="Блог ресторана Victory - гастрономические истории и новости">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="apple-touch-icon" href="{% static 'apple-touch-icon.png' %}">
@@ -56,8 +50,9 @@ https://templatemo.com/tm-507-victory
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h1>Наш блог</h1>
-                    <p>Добро пожаловать в наш блог — здесь мы делимся <strong>вдохновением, историями блюд, гастрономическими идеями и новостями ресторана.</strong></p>
+                    <h1>{{ post.title }}</h1>
+                    <p>{{ post.short_description }}</p>
+                    <p>Автор: {{ post.get_author_display }} | Дата: {{ post.date|date:"d M Y" }}</p>
                 </div>
             </div>
         </div>
@@ -66,21 +61,19 @@ https://templatemo.com/tm-507-victory
     <section class="blog-page">
         <div class="container">
             <div class="row">
-                {% for post in posts %}
                 <div class="col-md-8 col-md-offset-2">
                     <div class="blog-item">
-                        {% if post.image %}
-                        <a href="{% url 'post_detail' post.id %}">
                             <img src="{{ post.image.url }}" alt="{{ post.title }}" class="img-responsive">
-                        </a>
-                        {% endif %}
                         <div class="date">{{ post.date|date:"d M Y" }}</div>
                         <div class="down-content">
-                            <a href="{% url 'post_detail' post.id %}"><h4>{{ post.title }}</h4></a>
+                            <h4>{{ post.title }}</h4>
                             <span>Автор: {{ post.get_author_display }}</span>
-                            <p>{{ post.short_description }}</p>
+                            <p>{{ post.content }}</p>
+                            {% if post.conclusion %}
+                                <p>{{ post.conclusion }}</p>
+                            {% endif %}
                             <div class="text-button">
-                                <a href="{% url 'post_detail' post.id %}">Читать далее &rarr;</a>
+                                <a href="{% url 'blog' %}">Вернуться к блогу &larr;</a>
                             </div>
                         </div>
                     </div>
@@ -134,7 +127,7 @@ https://templatemo.com/tm-507-victory
                 </div>
                 <div class="col-md-4">
                     <ul class="social-icons">
-                        <li><a rel="nofollow" href="https://fb.com/templatemo"><i class="fa fa-facebook"></i></a></li>
+                        <li><a rel="nofollow" href="{% static 'https://fb.com/templatemo' %}"><i class="fa fa-facebook"></i></a></li>
                         <li><a href="#"><i class="fa fa-twitter"></i></a></li>
                         <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
                         <li><a href="#"><i class="fa fa-rss"></i></a></li>

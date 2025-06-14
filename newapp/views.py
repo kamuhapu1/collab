@@ -1,11 +1,11 @@
 from django.shortcuts import render, redirect
 from .forms import TableBookingForm, RegisterForm
 from django.contrib import messages
+from .models import Post
 from django.contrib.auth import login, logout as auth_logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
-
-
+from django.shortcuts import get_object_or_404
 
 def main_page(request):
     if request.method == 'POST':
@@ -22,7 +22,12 @@ def main_page(request):
 
 
 def blog(request):
-    return render(request, 'blog.html')
+    posts = Post.objects.all()
+    return render(request, 'blog.html', {'posts': posts})
+
+def post_detail(request, post_id):
+    post = get_object_or_404(Post, pk=post_id)
+    return render(request, 'post_detail.html', {'post': post})
 
 def contact(request):
     return render(request, 'contact.html')
@@ -62,4 +67,3 @@ def logout(request):
     auth_logout(request)
     messages.success(request, 'Вы вышли из аккаунта.')
     return redirect('main_page')
-

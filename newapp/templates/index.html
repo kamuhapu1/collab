@@ -7,7 +7,7 @@
 Victory HTML CSS Template
 https://templatemo.com/tm-507-victory
 -->
-        <title>Victory HTML CSS Template</title>
+        <title>Главная - Victory</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="apple-touch-icon" href="{% static 'img/apple-touch-icon.png' %}">
@@ -40,11 +40,7 @@ https://templatemo.com/tm-507-victory
 
 
         <div class="container">
-            <a href="#" class="navbar-brand scroll-top">Victory</a>
-
-
-
-
+            <a href="{% url 'main_page' %}" class="navbar-brand scroll-top">Victory</a>
 
             <nav class="navbar navbar-inverse" role="navigation">
                 <div class="navbar-header">
@@ -58,10 +54,10 @@ https://templatemo.com/tm-507-victory
                 <!--/.navbar-header-->
                 <div id="main-nav" class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
-                        <li><a href="{% url 'main_page' %}">Home</a></li>
-                        <li><a href="{% url 'menu' %}">Our Menus</a></li>
-                        <li><a href="{% url 'blog' %}">Blog Entries</a></li>
-                        <li><a href="{% url 'contact' %}">Contact Us</a></li>
+                        <li><a href="{% url 'main_page' %}">Главная</a></li>
+                        <li><a href="{% url 'menu' %}">Наше меню</a></li>
+                        <li><a href="{% url 'blog' %}">Блог</a></li>
+                        <li><a href="{% url 'contact' %}">Связаться</a></li>
                            {% if request.user.is_authenticated %}
                     <li><a href="{% url 'logout' %}"
            style="display: inline-block; padding: 10px 20px; background-color: #dc3545; color: white; border: none; border-radius: 6px; text-decoration: none; font-weight: 500;">
@@ -92,11 +88,11 @@ https://templatemo.com/tm-507-victory
         <div class="container">
             <div class="row">
                 <div class="col-md-6 col-md-offset-3">
-                    <h4>Here you can find delecious foods</h4>
-                    <h2>Asian Restaurant</h2>
-                    <p>Quisque nec nibh id lacus fringilla eleifend sed sit amet sem. Donec lectus odio, mollis a nisl non, tempor interdum nisl.</p>
+                    <h4>Здесь вас ждут вкуснейшие блюда</h4>
+                    <h2>Азиатский ресторан</h2>
+                    <p>Мы предлагаем аутентичные азиатские вкусы, приготовленные с любовью и вниманием к деталям. Погрузитесь в атмосферу настоящего гастрономического путешествия.</p>
                     <div class="primary-button">
-                        <a href="#" class="scroll-link" data-id="book-table">Order Right Now</a>
+                        <a href="#" class="scroll-link" data-id="book-table">Забронировать прямо сейчас</a>
                     </div>
                 </div>
             </div>
@@ -115,14 +111,14 @@ https://templatemo.com/tm-507-victory
                 </div>
                 <div class="col-md-4">
                     <div class="cook-content">
-                        <h4>We cook delecious</h4>
+                        <h4>Мы готовим вкусно!</h4>
                         <div class="contact-content">
-                            <span>You can call us on:</span>
+                            <span>Вы можете позвонить нам по номеру:</span>
                             <h6>+ 1234 567 8910</h6>
                         </div>
-                        <span>or</span>
+                        <span>или</span>
                         <div class="primary-white-button">
-                            <a href="#" class="scroll-link" data-id="book-table">Order Now</a>
+                            <a href="#" class="scroll-link" data-id="book-table">Забронировать сейчас</a>
                         </div>
                     </div>
                 </div>
@@ -144,7 +140,7 @@ https://templatemo.com/tm-507-victory
                     <div class="service-item">
                         <a href="{% url 'menu' %}">
                         <img src="{% static 'img/cook_breakfast.png' %}" alt="Breakfast">
-                        <h4>Breakfast</h4>
+                        <h4>Завтраки</h4>
                         </a>
                     </div>
                 </div>
@@ -152,7 +148,7 @@ https://templatemo.com/tm-507-victory
                     <div class="service-item">
                         <a href="{% url 'menu' %}">
                         <img src="{% static 'img/cook_lunch.png' %}" alt="Lunch">
-                        <h4>Lunch</h4>
+                        <h4>Перекусы</h4>
                         </a>
                     </div>
                 </div>
@@ -160,7 +156,7 @@ https://templatemo.com/tm-507-victory
                     <div class="service-item">
                         <a href="{% url 'menu' %}">
                         <img src="{% static 'img/cook_dinner.png' %}" alt="Dinner">
-                        <h4>Dinner</h4>
+                        <h4>Ужин</h4>
                         </a>
                     </div>
                 </div>
@@ -168,7 +164,7 @@ https://templatemo.com/tm-507-victory
                     <div class="service-item">
                         <a href="{% url 'menu' %}">
                         <img src="{% static 'img/cook_dessert.png' %}" alt="Desserts">
-                        <h4>Desserts</h4>
+                        <h4>Десерты</h4>
                         </a>
                     </div>
                 </div>
@@ -180,14 +176,14 @@ https://templatemo.com/tm-507-victory
     <section id="book-table">
   <div class="container">
     <div class="row">
-      <div class="col-md-12"><h2>Book Your Table Now</h2></div>
+      <div class="col-md-12"><h2>Забронируйте столик прямо сейчас</h2></div>
 
       <div class="col-md-4 col-md-offset-2 col-sm-12">
         <img src="{% static 'img/book_left_image.jpg' %}" alt="">
       </div>
 
       <div class="col-md-4 col-sm-12">
-        <h4>Reservation</h4>
+        <h4>Резервация</h4>
 
         {% if messages %}
           {% for message in messages %}
@@ -207,19 +203,19 @@ https://templatemo.com/tm-507-victory
       </div>
       <div class="col-md-6">
         <select name="day" class="form-control" required>
-          <option value="">Select day</option>
-          <option value="Monday">Monday</option>
-          <option value="Tuesday">Tuesday</option>
-          <option value="Wednesday">Wednesday</option>
-          <option value="Thursday">Thursday</option>
-          <option value="Friday">Friday</option>
-          <option value="Saturday">Saturday</option>
-          <option value="Sunday">Sunday</option>
+          <option value="">Выберите день</option>
+            <option value="Monday">Понедельник</option>
+            <option value="Tuesday">Вторник</option>
+            <option value="Wednesday">Среда</option>
+            <option value="Thursday">Четверг</option>
+            <option value="Friday">Пятница</option>
+            <option value="Saturday">Суббота</option>
+            <option value="Sunday">Воскресенье</option>
         </select>
       </div>
       <div class="col-md-6">
         <select name="hour" class="form-control" required>
-          <option value="">Select hour</option>
+          <option value="">Выберите время</option>
           <option value="10:00">10:00</option>
           <option value="12:00">12:00</option>
           <option value="14:00">14:00</option>
@@ -231,17 +227,17 @@ https://templatemo.com/tm-507-victory
       </div>
       <div class="col-md-6">
         <select name="persons" class="form-control" required>
-          <option value="">How many persons?</option>
-          <option value="1">1 Person</option>
-          <option value="2">2 Persons</option>
-          <option value="3">3 Persons</option>
-          <option value="4">4 Persons</option>
-          <option value="5">5 Persons</option>
-          <option value="6">6 Persons</option>
+          <option value="">Сколько человек?</option>
+            <option value="1-Person">1 Человек</option>
+            <option value="2-Persons">2 Человека</option>
+            <option value="3-Persons">3 Человека</option>
+            <option value="4-Persons">4 Человека</option>
+            <option value="5-Persons">5 Человек</option>
+            <option value="6-Persons">6 Человек</option>
         </select>
       </div>
       <div class="col-md-6">
-        <button type="submit" class="btn">Book Table</button>
+        <button type="submit" class="btn">Забронировать</button>
       </div>
     </div>
   </form>
@@ -258,63 +254,44 @@ https://templatemo.com/tm-507-victory
   </div>
 </section>
 
-
-
-
-
-    <section class="get-app">
-        <div class="container">
-            <div class="row">
-                <div class="heading">
-                    <h2>Get application for your phone</h2>
-                </div>
-                <div class="primary-white-button">
-                    <a href="#">Download now</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-
     <section class="featured-food">
         <div class="container">
             <div class="row">
                 <div class="heading">
-                    <h2>Weekly Featured Food</h2>
+                    <h2>Популярные блюда</h2>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-4">
                     <div class="food-item">
-                        <h2>Breakfast</h2>
+                        <h2>Завтрак</h2>
                         <img src="{% static 'img/breakfast_item.jpg' %}" alt="">
                         <div class="price">$4.50</div>
                         <div class="text-content">
-                            <h4>Kale Chips Art Party</h4>
-                            <p>Dreamcatcher squid ennui cliche chicharros nes echo  small batch jean shorts hexagon street art knausgaard wolf...</p>
+                            <h4>Кейл-чипсы «Арт Пати»</h4>
+                            <p>Нежные кольца кальмара, обжаренные до золотистой корочки, подаются с хрустящими чичарронами и фирменным соусом.</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="food-item">
-                        <h2>Lunch</h2>
+                        <h2>Перекус</h2>
                         <img src="{% static 'img/lunch_item.jpg' %}" alt="">
                         <div class="price">$7.50</div>
                         <div class="text-content">
-                            <h4>Taiyaki Gastro Tousled</h4>
-                            <p>Dreamcatcher squid ennui cliche chicharros nes echo  small batch jean shorts hexagon street art knausgaard wolf...</p>
+                            <h4>Кукуруза Мамбл Дитч</h4>
+                            <p>Обжаренные зёрна кукурузы с пряным сливочным соусом, чесноком, зеленью и хрустящей крошкой из кукурузных хлопьев.</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="food-item">
-                        <h2>Dinner</h2>
+                        <h2>Ужин</h2>
                         <img src="{% static 'img/dinner_item.jpg' %}" alt="">
                         <div class="price">$12.50</div>
                         <div class="text-content">
-                            <h4>Batch Squid Jean Shorts</h4>
-                            <p>Dreamcatcher squid ennui cliche chicharros nes echo  small batch jean shorts hexagon street art knausgaard wolf...</p>
+                            <h4>Яблоки с миндалём и мёдом</h4>
+                            <p>Запеченные яблоки подаются с обжаренным миндалём, корицей и натуральным мёдом. Карамельный соус придаёт сладость, а ореховая крошка добавляет хруста.</p>
                         </div>
                     </div>
                 </div>
@@ -325,74 +302,39 @@ https://templatemo.com/tm-507-victory
 
 
     <section class="our-blog">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="heading">
-                        <h2>Our blog post</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="blog-post">
-                        <img src="{% static 'img/blog_post_01.jpg' %}" alt="">
-                        <div class="date">26 Oct 2020</div>
-                        <div class="right-content">
-                            <h4>Stumptown Tofu Schlitz</h4>
-                            <span>Branding / Admin</span>
-                            <p>Skateboard iceland twee tofu shaman crucifix vice before they sold out corn hole occupy drinking vinegar chambra meggings kale chips hexagon...</p>
-                            <div class="text-button">
-                                <a href="{% url 'blog' %}">Continue Reading</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="blog-post">
-                        <img src="{% static 'img/blog_post_02.jpg' %}" alt="">
-                        <div class="date">21 Oct 2020</div>
-                        <div class="right-content">
-                            <h4>Succulents Hashtag Folk</h4>
-                            <span>Branding / Admin</span>
-                            <p>Skateboard iceland twee tofu shaman crucifix vice before they sold out corn hole occupy drinking vinegar chambra meggings kale chips hexagon...</p>
-                            <div class="text-button">
-                                <a href="{% url 'blog' %}">Continue Reading</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="blog-post">
-                        <img src="{% static 'img/blog_post_03.jpg' %}" alt="">
-                        <div class="date">11 Oct 2020</div>
-                        <div class="right-content">
-                            <h4>Knaus Sriracha Pinterest</h4>
-                            <span>Dessert / Chef</span>
-                            <p>Skateboard iceland twee tofu shaman crucifix vice before they sold out corn hole occupy drinking vinegar chambra meggings kale chips hexagon...</p>
-                            <div class="text-button">
-                                <a href="{% url 'blog' %}">Continue Reading</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="blog-post">
-                        <img src="{% static 'img/blog_post_04.jpg' %}" alt="">
-                        <div class="date">03 Oct 2020</div>
-                        <div class="right-content">
-                            <h4>Crucifix Selvage Coat</h4>
-                            <span>Plate / Chef</span>
-                            <p>Skateboard iceland twee tofu shaman crucifix vice before they sold out corn hole occupy drinking vinegar chambra meggings kale chips hexagon...</p>
-                            <div class="text-button">
-                                <a href="{% url 'blog' %}">Continue Reading</a>
-                            </div>
-                        </div>
-                    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="heading">
+                    <h2>Последние записи в блоге</h2>
                 </div>
             </div>
         </div>
-    </section>
+        <div class="row">
+            {% for post in posts %}
+            <div class="col-md-3 col-sm-6">  <!-- Изменили колонки для 4 постов в ряд -->
+                <div class="blog-post">
+                    {% if post.image %}
+                    <img src="{{ post.image.url }}" alt="{{ post.title }}" class="img-responsive">
+                    {% endif %}
+                    <div class="date">{{ post.date|date:"d M Y" }}</div>
+                    <div class="right-content">
+                        <h4>{{ post.title }}</h4>
+                        <p>{{ post.content|truncatechars:100 }}</p>
+                        <div class="text-button">
+                            <a href="{% url 'post_detail' post.id %}">Читать далее →</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-md-12">
+                <div class="alert alert-info">Пока нет ни одного поста.</div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
 
 
 
@@ -401,7 +343,7 @@ https://templatemo.com/tm-507-victory
             <div class="row">
                 <div class="col-md-12">
                     <div class="heading">
-                        <h2>Signup for our newsletters</h2>
+                        <h2>Войдите, чтобы получать уведомления</h2>
                     </div>
                 </div>
             </div>
@@ -409,12 +351,12 @@ https://templatemo.com/tm-507-victory
                 <div class="row">
                     <div class="col-md-4 col-md-offset-3">
                         <fieldset>
-                            <input name="email" type="text" class="form-control" id="email" placeholder="Enter your email here..." required="">
+                            <input name="email" type="text" class="form-control" id="email" placeholder="Введите свой email..." required="">
                         </fieldset>
                     </div>
                     <div class="col-md-2">
                         <fieldset>
-                            <button type="submit" id="form-submit" class="btn">Send Message</button>
+                            <button type="submit" id="form-submit" class="btn">Отправить сообщение</button>
                         </fieldset>
                     </div>
                 </div>
@@ -428,7 +370,7 @@ https://templatemo.com/tm-507-victory
         <div class="container">
             <div class="row">
                 <div class="col-md-4">
-                    <p>Copyright &copy; 2020 Victory Template</p>
+                    <p>&copy; София</p>
                 </div>
                 <div class="col-md-4">
                     <ul class="social-icons">
@@ -440,14 +382,14 @@ https://templatemo.com/tm-507-victory
                     </ul>
                 </div>
                 <div class="col-md-4">
-                    <p>Design: TemplateMo</p>
+                    <p>&copy; Саадат</p>
                 </div>
             </div>
         </div>
     </footer>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
+    <script>window.jQuery || document.write('<script src="{% static 'js/vendor/jquery-1.11.2.min.js' %}"><\/script>')</script>
 
     <script src="{% static 'js/vendor/bootstrap.min.js' %}"></script>
 
