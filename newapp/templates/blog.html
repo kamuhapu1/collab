@@ -64,40 +64,45 @@ https://templatemo.com/tm-507-victory
     </section>
 
     <section class="blog-page">
-        <div class="container">
-            <div class="row">
-                {% for post in posts %}
-                <div class="col-md-8 col-md-offset-2">
-                    <div class="blog-item">
-                        {% if post.image %}
-                        <a href="{% url 'post_detail' post.id %}">
-                            <img src="{{ post.image.url }}" alt="{{ post.title }}" class="img-responsive">
-                        </a>
-                        {% endif %}
-                        <div class="date">{{ post.date|date:"d M Y" }}</div>
-                        <div class="down-content">
-                            <a href="{% url 'post_detail' post.id %}"><h4>{{ post.title }}</h4></a>
-                            <span>Автор: {{ post.get_author_display }}</span>
-                            <p>{{ post.short_description }}</p>
-                            <div class="text-button">
-                                <a href="{% url 'post_detail' post.id %}">Читать далее &rarr;</a>
-                            </div>
+    <div class="container">
+        <div class="row">
+            {% for post in posts %}
+            <div class="col-md-8 col-md-offset-2">
+                <div class="blog-item">
+                    {% if post.image %}
+                    <a href="{% url 'post_detail' post.id %}">
+                        <img src="{{ post.image.url }}" alt="{{ post.title }}" class="img-responsive">
+                    </a>
+                    {% endif %}
+                    <div class="date">{{ post.date|date:"d M Y" }}</div>
+                    <div class="down-content">
+                        <a href="{% url 'post_detail' post.id %}"><h4>{{ post.title }}</h4></a>
+                        <span>Автор: {{ post.get_author_display }}</span>
+                        <p>{{ post.short_description }}</p>
+                        <div class="text-button">
+                            <a href="{% url 'post_detail' post.id %}">Читать далее &rarr;</a>
                         </div>
                     </div>
                 </div>
+            </div>
+            {% empty %}
+            <div class="col-md-8 col-md-offset-2">
+                <div class="alert alert-info">Пока нет ни одного поста. Зайдите позже!</div>
+            </div>
+            {% endfor %}
 
-                <div class="col-md-8 col-md-offset-2">
-                    <ul class="page-number">
-                        <li><a href="#">1</a></li>
-                        <li class="active"><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">&raquo;</a></li>
-                    </ul>
-                </div>
+            <div class="col-md-8 col-md-offset-2">
+                <ul class="page-number">
+                    <li><a href="#">1</a></li>
+                    <li class="active"><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">&raquo;</a></li>
+                </ul>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
     <section class="sign-up">
         <div class="container">

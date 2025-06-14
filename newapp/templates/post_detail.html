@@ -79,45 +79,49 @@
                     </div>
                 </div>
 
-                <div class="col-md-8 col-md-offset-2">
-                    <ul class="page-number">
-                        <li><a href="#">1</a></li>
-                        <li class="active"><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">&raquo;</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
+<div class="comments-section mt-5">
+    <h4 class="mb-4">Комментарии ({{ comments.count }})</h4>
 
-    <section class="sign-up">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="heading">
-                        <h2>Подпишитесь на наши новости</h2>
-                    </div>
-                </div>
-            </div>
-            <form id="contact" action="" method="post">
-                {% csrf_token %}
-                <div class="row">
-                    <div class="col-md-4 col-md-offset-3">
-                        <fieldset>
-                            <input name="email" type="email" class="form-control" id="email" placeholder="Ваш email..." required>
-                        </fieldset>
-                    </div>
-                    <div class="col-md-2">
-                        <fieldset>
-                            <button type="submit" id="form-submit" class="btn">Подписаться</button>
-                        </fieldset>
-                    </div>
-                </div>
-            </form>
+    {% for comment in comments %}
+    <div class="comment mb-4 p-3 bg-light rounded">
+        <div class="d-flex justify-content-between mb-2">
+            <strong>{{ comment.author }}</strong>
+            <small class="text-muted">{{ comment.created_date|date:"d M Y H:i" }}</small>
         </div>
-    </section>
+        <p class="mb-0">{{ comment.text|linebreaksbr }}</p>
+    </div>
+    {% empty %}
+    <p>Пока нет комментариев. Будьте первым!</p>
+    {% endfor %}
+
+    <div class="comment-form mt-5">
+    <h5 class="mb-3">
+        <a href="#submit-comment" class="smooth-scroll-link text-decoration-none" style="color: inherit;">
+            Оставить комментарий
+        </a>
+    </h5>
+    <form method="post">
+            {% csrf_token %}
+
+            {% if not request.user.is_authenticated %}
+            <div class="alert alert-warning small mb-3">
+                Вы комментируете как гость. <a href="{% url 'login' %}?next={{ request.path }}">Войдите</a>, чтобы сохранить имя.
+            </div>
+            {% endif %}
+
+            <div class="form-group">
+                <textarea name="text" class="form-control" rows="3"
+                          placeholder="Ваш комментарий..." required></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-coral mt-3" id="submit-comment">
+                <i class="far fa-paper-plane me-2"></i> Отправить
+            </button>
+        </form>
+    </div>
+</div>
+
+<div class="footer-spacer" style="height: 100px;"></div>
 
     <footer>
         <div class="container">
@@ -172,6 +176,16 @@
         var targetOffset = $(id).offset().top - offSet;
         $('html,body').animate({scrollTop:targetOffset}, speed);
     }
+    </script>
+
+    <script>
+    document.querySelector('.smooth-scroll-link').addEventListener('click', function(e) {
+        e.preventDefault();
+        document.getElementById('submit-comment').scrollIntoView({
+            behavior: 'smooth',
+            block: 'center'
+        });
+    });
     </script>
 </body>
 </html>
